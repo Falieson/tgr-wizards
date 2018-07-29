@@ -1,0 +1,13 @@
+@import '../theme.scss';
+
+.container {
+  margin-bottom: 20px;
+  a {
+    display: inline-block;
+    color: inherit;
+    padding: 8px 16px 10px 2px;
+  }
+  a:visited {
+    color: inherit;
+  }
+}

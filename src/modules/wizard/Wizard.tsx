@@ -3,40 +3,95 @@
 */
 
 import * as React from 'react'
-import { ReactChildren } from '../../types/common'
-
-import {
-  Container,
-  Footer,
-  Page,
-  Stepper,
-} from './simple'
+import { Link, RouteProps, withRouter } from 'react-router-dom'
+import * as URLSearchParams from 'url-search-params'
+import { suuid } from './helpers/string'
+import { Container, Page, Stepper } from './simple'
 
 interface IProps {
-  children: ReactChildren
+  children: any // tslint:disable-line no-any
 }
 
 interface IState {
+  currentPage: JSX.Element,
+  pageNumber: number,
 }
 
-export default class Wizard extends React.Component<IProps, IState> {
-  // steps: ReactChildren
+@withRouter // ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/17355
+export default class Wizard extends React.Component<IProps & RouteProps, IState> {
+  steps: JSX.Element[]
+  pages: JSX.Element[]
+  id = suuid(4)
+  WIZARD_SHORT = 'Wz'
 
   constructor(props: IProps) {
     super(props)
 
-    this.state = {}
+    this.pages = this.makePages()
+    this.steps = this.makeSteps()
+
+    this.state = {
+      currentPage: this.pages[0],
+      pageNumber: 0,
+    }
+  }
+
+  componentWillReceiveProps(np: IProps) {
+    const search = np.location.search.substring(1)
+    const params = new URLSearchParams(search)
+    const id = params.get(this.WIZARD_SHORT)
+    const pg = params.get('Pg')
+    if (id === this.id) {
+      // this wizard is active
+      //   useful for toggling a modal wizard via params
+      //   useful for having multiple wizards in the same page
+      this.setPage(pg)
+    }
+  }
+
+  componentWillUnmount() {
+    // TODO: this.onAbandon()
+    // NOTE: https://reacttraining.com/react-router/web/example/preventing-transitions
+  }
+
+  setPage(n: number) {
+    if (n !== this.state.pageNumber) {
+      this.setState({
+        currentPage: this.pages[n]
+      })
+    }
+  }
+
+  makePages(): JSX.Element[] {
+    if (!this.props.children.length) { // only 1 page
+      return [this.props.children]
+    }
+
+    return this.props.children
+  }
+
+  makeSteps(): JSX.Element[] {
+    if (!this.props.children.length) { // only 1 page
+      return []
+    }
+
+    const PWD = this.props.location.pathname
+
+    const StepItem = (n: number) => <Link to={`${PWD}?${this.WIZARD_SHORT}=${this.id}&Pg=${n}`} key={n}>
+      Step {n}
+    </Link>
+
+    return this.props.children.map((_c: any, i: number) => StepItem(i)) // tslint:disable-line no-any
   }
 
   render() {
     return <Container>
-      <Stepper/>
-      {/*  steps={this.steps} */}
+      <Stepper>
+        {this.steps}
+      </Stepper>
       <Page>
-        {this.props.children}
-        {/* {this.renderPage()} */}
+        {this.state.currentPage}
       </Page>
-      <Footer />
     </Container>
   }
 }
