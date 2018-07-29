@@ -2,4 +2,4 @@ export interface IGlobalCss {
 
 }
 
-export const locals: IGlobalCss
+export const locals: IGlobalCss;
