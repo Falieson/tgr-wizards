@@ -1,0 +1,23 @@
+@import '../../../theme.scss';
+$break-small: 1100px;
+$break-large: 1500px;
+
+.container {
+  // between 1100-1500
+  margin: 20px 25% 10px 25%;
+
+  // less than 1100
+  @media screen and (max-width: $break-small) {
+    margin: 2px
+  }
+
+  // more than 1500
+  @media screen and (min-width: $break-large) {
+    max-width: 1600px;
+    margin: 10px auto;
+  }
+}
+
+.border {
+  border: 1px solid $primary-dark
+}

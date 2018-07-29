@@ -2,18 +2,24 @@ import Gx from 'gx'
 import * as React from 'react'
 import Helmet from 'react-helmet'
 
-import Hello from '../../components/hello'
-import * as S from './Register.css'
+import Wizard from '../../components/wizard'
+// import * as S from './Register.css'
 
 function HomeEntrancePage() {
   return (
-    <div className={S.container}>
+    <div>
       <Helmet>
         <title>Register</title>
       </Helmet>
 
       <Gx col={12}>
-        {Hello('The Registration Page')}
+        <Wizard>
+          <div>First Page</div>
+          <div>Second Page</div>
+          {/* <MyProfileForm />
+          <MyLinksForm />
+          <MyBioForm /> */}
+        </Wizard>
       </Gx>
     </div>
   )

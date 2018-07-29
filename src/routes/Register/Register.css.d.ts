@@ -1,5 +1,5 @@
 export interface IRegisterCss {
-  'container': string;
+  'container': string
 }
 
-export const locals: IRegisterCss;
+export const locals: IRegisterCss
