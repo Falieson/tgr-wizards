@@ -1,19 +1,22 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom/'
+import { Link } from 'react-router-dom'
 
-import Header from './Header'
 import * as S from './Header.scss'
+import Header from './HeaderLeftRight'
 
-class LoggedOutHeader extends React.Component<{}, {}> {
+class HeaderIndex extends React.Component<{}, {}> {
   render() {
-    const items = [
-      <span className={S.text}>Header</span>,  // tslint:disable-line jsx-key
-      <Link to="/">Home</Link>,                               // tslint:disable-line jsx-key
-      <Link to="/foo">Foo</Link>,                             // tslint:disable-line jsx-key
+    const left = [
+      <Link to="/">
+        <span className={S.text}>TGR Wizards</span>
+      </Link>,                    // tslint:disable-line jsx-key
+    ]
+    const right = [
+      <Link to="/register">Register</Link>, // tslint:disable-line jsx-key
     ]
 
-    return <Header items={items} />
+    return <Header leftItems={left} rightItems={right}/>
   }
 }
 
-export default LoggedOutHeader
+export default HeaderIndex

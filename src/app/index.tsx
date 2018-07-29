@@ -3,8 +3,8 @@
 import * as React from 'react'
 // import Helmet from './Helmet'
 
-import Page from '../components/page/'
-import Routes from '../routes/'
+import Page from '../components/page'
+import Routes from '../routes'
 import './global.css'
 
 export default function App() {

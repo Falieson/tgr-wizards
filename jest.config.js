@@ -2,8 +2,8 @@ module.exports = {
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
-  "testURL": 'http://localhost',
   "setupTestFrameworkScriptFile": "<rootDir>/jest/jest.setup.js",
+  "testURL": 'http://localhost',
   "testPathIgnorePatterns": ["/node_modules/", "/.reference/", "/build/", "/scripts/"],
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec)s?)\\.(jsx?|tsx?)$",
   "moduleFileExtensions": [

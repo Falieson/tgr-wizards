@@ -1,5 +1,7 @@
 export interface IHeaderScss {
-  'list': string;
+  'container': string
+  'list': string
+  'right': string
 }
 
-export const locals: IHeaderScss;
+export const locals: IHeaderScss
