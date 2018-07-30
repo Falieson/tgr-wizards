@@ -1,15 +1,38 @@
 /* BetterStepper
  * - [x] limited steps
- * - [ ] current step
- * - [ ] advance/previous steps
- * - [ ] reset steps
+ * - [x] current step
 */
 
+import * as className from 'classnames'
 import * as React from 'react'
 import { Link, RouteProps, withRouter } from 'react-router-dom'
 import { ReactChildren } from '../types/common'
 import { WizardConsumer } from '../Wizard'
 import * as S from './BetterStepper.scss'
+
+interface IStepperItemProps {
+  active: boolean,
+  dex: number,
+  to: string,
+}
+export function StepperItem({
+  active,
+  dex,
+  to,
+}: IStepperItemProps) {
+  const classes = {}
+  classes[S.item_container] = true
+  classes[S.item_active] = active
+  const containerClasses = className(classes)
+
+  return <Link to={to}>
+    <div className={containerClasses}>
+      <div className={S.item_text}>
+        Step {dex + 1}
+      </div>
+    </div>
+  </Link>
+}
 
 interface IProps {
   children: ReactChildren[]
@@ -21,10 +44,6 @@ interface IState {
   id: string,
   query_id: string,
 }
-
-export const StepItem = (to: string, key: number) => <Link to={to} key={key}>
-  Step {key + 1}
-</Link>
 
 class BetterStepper extends React.Component<IProps & RouteProps, IState> {
   static defaultProps = {
@@ -52,10 +71,9 @@ class BetterStepper extends React.Component<IProps & RouteProps, IState> {
   }
 
   componentWillUpdate(_: any, ns: IState) { // tslint:disable-line no-any
-    if (ns.query_id !== this.state.query_id) {
-      this.steps = this.makeSteps(ns)
-    }
-    if (ns.id !== this.state.id) {
+    const newState = JSON.stringify(Object.values(ns)) !== JSON.stringify(Object.values(this.state))
+
+    if (newState) {
       this.steps = this.makeSteps(ns)
     }
   }
@@ -84,7 +102,7 @@ class BetterStepper extends React.Component<IProps & RouteProps, IState> {
       children, location
     } = this.props
     const {
-      id, query_id,
+      currentPage, id, query_id,
     } = state
 
     if (!children.length) { // only 1 page
@@ -93,7 +111,14 @@ class BetterStepper extends React.Component<IProps & RouteProps, IState> {
 
     const PWD = location && location.pathname
     const path = (n: number) => `${PWD}?${query_id}=${id}&Pg=${n}`
-    return children.map((_c: any, i: number) => StepItem(path(i), i)) // tslint:disable-line no-any
+
+    // tslint:disable-next-line no-any
+    return children.map((_c: any, i: number) => <StepperItem
+      dex={i}
+      key={i}
+      to={path(i)}
+      active={currentPage === i}
+    />) // tslint:disable-line no-any
   }
 
   render() {

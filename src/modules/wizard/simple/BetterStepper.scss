@@ -15,3 +15,14 @@
     color: inherit;
   }
 }
+
+.item_container {
+  display: block;
+}
+.item_text {
+  font-size: 1.25rem;
+}
+.item_active {
+  @extend .accent_secondary;
+  border-radius: 50%;
+}

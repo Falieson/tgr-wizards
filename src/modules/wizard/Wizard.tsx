@@ -1,4 +1,5 @@
-/* Wizard
+/* WizardBuilder()
+ * Helper that makes it easy to swap out wizard components
  *
 */
 
@@ -6,11 +7,8 @@ import * as React from 'react'
 import { RouteProps, withRouter } from 'react-router-dom'
 import * as URLSearchParams from 'url-search-params'
 import { suuid } from './helpers/string'
-import {
-  Container as SimpleContainer,
-  Page as SimplePage,
-  SimpleStepper,
-} from './simple'
+import { Container as SimpleContainer, Page as SimplePage, SimpleStepper } from './simple'
+import * as T from './theme.scss'
 
 const sid = suuid(4)
 export const {
@@ -23,8 +21,8 @@ export const {
 })
 
 interface IWizProps extends RouteProps {
-  children: any, // tslint:disable-line no-any
-  theme?: any,  // tslint:disable-line no-any
+  children: any,  // tslint:disable-line no-any
+  theme?: any,    // tslint:disable-line no-any
 }
 
 interface IWizBuilderProps {
@@ -32,6 +30,7 @@ interface IWizBuilderProps {
   Container?: JSX.Element,
   Page?: JSX.Element,
   Stepper?: JSX.Element,
+  theme?: any,    // tslint:disable-line no-any
 }
 
 interface IState {
@@ -44,6 +43,7 @@ export default function WizardBuilder({
   Container = SimpleContainer,
   Page = SimplePage,
   Stepper = SimpleStepper,
+  theme = T,
 }: IWizBuilderProps = {}) {
   const Result = class Wizard extends React.Component<IWizProps, IState> {
     id: string
@@ -102,7 +102,7 @@ export default function WizardBuilder({
     }
 
     render() {
-      return <Container theme={this.props.theme}>
+      return <Container theme={theme}>
         <WizardProvider
           value={{
             id: this.id,

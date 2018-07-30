@@ -9,14 +9,12 @@
 ## V1
 
 - [Stepper(A|B)?, Footer, Page, Header] instance of WizardComponent - Component that includes the ThemeConsumer
-- 
 
 ## GoldPlating
 
 ### WizardBuilder
 
-- [ ] the default function is makeWizard, the
-  - [ ] Wizard.tsx becomes DefaultWizard.tsx, using SimpleWizard Components
+- [x] the default function is makeWizard, the
 - [ ] props:
   - [ ] Components: {id: string[]: Component}
   - [ ] type: Content | Form ?
