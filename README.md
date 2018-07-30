@@ -1,8 +1,23 @@
 <p align='center'>
   <h1 align='center'>TGR-Wizards</h1>
-  <h2>Compilation of example wizards made with `tr-wizard`</h2>
+  <h2>Compilation of example wizards made with prototype of `tr-wizard` module</h2>
   <hr />
 </p>
+
+## File Structure
+
+```text
+src/
+├── app/          - global app stuff
+├── components/   - the pieces used in the routes, abstracts modules
+├── helpers/      - useful functions
+├── middlewares/  - third-party HOC functionality (apollo, router)
+├── modules/      - first-party modules
+    ├── gx        - author hasn't published rc4 which fixes a broken package
+    ├── wizard    - prototyping the module before extracting it to its own module
+├── routes/       - define page for a route
+├── types/        - ts modules, common, interfaces
+```
 
 ## Notable Features
 
