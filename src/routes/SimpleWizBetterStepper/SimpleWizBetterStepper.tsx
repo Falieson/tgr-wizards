@@ -22,9 +22,6 @@ function SimpleWizard() {
       <Gx col={12}>
         <Wizard>
           {...pages}
-          {/* <MyProfileForm />
-          <MyLinksForm />
-          <MyBioForm /> */}
         </Wizard>
       </Gx>
     </div>

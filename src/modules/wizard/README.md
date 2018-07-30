@@ -1,5 +1,42 @@
 # TR-Wizard (TS React Wizard)
 
+## Usage
+
+```javascript
+// WB: default values
+interface IWizBuilderProps {
+  id?: string,
+  Container?: JSX.Element,
+  Page?: JSX.Element,
+  Stepper?: JSX.Element,
+  theme?: any,    // tslint:disable-line no-any
+}
+function WizardBuilder({
+  id = sid,
+  Container = SimpleContainer,
+  Page = SimplePage,
+  Stepper = SimpleStepper,
+  theme = T,
+}: IWizBuilderProps
+```
+
+```javascript
+// WB: instantiate
+const Wizard = WizardBuilder({
+  Stepper: BetterStepper,
+  id: 'betterSimple',
+})
+
+// WB: usage
+export default function() {
+  return <Wizard>
+    {...pages}
+  </Wizard>
+}
+```
+
+## FAQ: Component vs Module
+
 The reason this isn't in the components directory, but a 'modules' direcetory is because it is meant to be refactored into a standalone ts-react-module which can then be installed via npm from a private registry.
 
 This means that there is some duplication between the structure of this folder and that of the parent-app, ie:
@@ -13,7 +50,7 @@ This means that there is some duplication between the structure of this folder a
 
 Additionally, a module shouldn't import anything from outside of its direcetory, if it does - that thing that should be copied into the module directory and imported locally. Better yet, if its a common enough piece of code, move it into a new module folder and follow the regular abstraction pattern.
 
-## Abstraction pattern
+### Abstraction pattern
 
 1. routes are layouts that import components
 2. components import modules, whether first or third party

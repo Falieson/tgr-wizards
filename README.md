@@ -4,6 +4,43 @@
   <hr />
 </p>
 
+## Usage
+
+(copy/pasted from `src/modules/wizard/README.md`)
+
+```javascript
+// WB: default values
+interface IWizBuilderProps {
+  id?: string,
+  Container?: JSX.Element,
+  Page?: JSX.Element,
+  Stepper?: JSX.Element,
+  theme?: any,    // tslint:disable-line no-any
+}
+function WizardBuilder({
+  id = sid,
+  Container = SimpleContainer,
+  Page = SimplePage,
+  Stepper = SimpleStepper,
+  theme = T,
+}: IWizBuilderProps
+```
+
+```javascript
+// WB: instantiate
+const Wizard = WizardBuilder({
+  Stepper: BetterStepper,
+  id: 'betterSimple',
+})
+
+// WB: usage
+export default function() {
+  return <Wizard>
+    {...pages}
+  </Wizard>
+}
+```
+
 ## File Structure
 
 ```text
