@@ -6,12 +6,32 @@ import * as React from 'react'
 import { RouteProps, withRouter } from 'react-router-dom'
 import * as URLSearchParams from 'url-search-params'
 import { suuid } from './helpers/string'
-import { Container, Page, Stepper } from './simple'
-import { StepItem } from './simple/SimpleStepper'
+import {
+  Container as SimpleContainer,
+  Page as SimplePage,
+  SimpleStepper,
+} from './simple'
 
-interface IProps {
+const sid = suuid(4)
+export const {
+  Provider: WizardProvider,
+  Consumer: WizardConsumer,
+} = React.createContext({
+  id: sid,
+  page: 0,
+  query_id: 'Wz'
+})
+
+interface IWizProps extends RouteProps {
   children: any, // tslint:disable-line no-any
   theme?: any,  // tslint:disable-line no-any
+}
+
+interface IWizBuilderProps {
+  id?: string,
+  Container?: JSX.Element,
+  Page?: JSX.Element,
+  Stepper?: JSX.Element,
 }
 
 interface IState {
@@ -19,77 +39,87 @@ interface IState {
   pageNumber: number,
 }
 
-@withRouter // ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/17355
-export default class Wizard extends React.Component<IProps & RouteProps, IState> {
-  steps: JSX.Element[]
-  pages: JSX.Element[]
-  id = suuid(4)
-  WIZARD_SHORT = 'Wz'
+export default function WizardBuilder({
+  id = sid,
+  Container = SimpleContainer,
+  Page = SimplePage,
+  Stepper = SimpleStepper,
+}: IWizBuilderProps = {}) {
+  const Result = class Wizard extends React.Component<IWizProps, IState> {
+    id: string
+    pages: JSX.Element[]
+    query_id = 'Wz'
 
-  constructor(props: IProps) {
-    super(props)
+    constructor(props: IWizProps) {
+      super(props)
 
-    this.pages = this.makePages()
-    this.steps = this.makeSteps()
+      this.id = id
+      this.pages = this.makePages()
 
-    this.state = {
-      currentPage: this.pages[0],
-      pageNumber: 0,
+      this.state = {
+        currentPage: this.pages[0],
+        pageNumber: 0,
+      }
+    }
+
+    componentWillReceiveProps(np: IWizProps) {
+      this.setPage(np)
+    }
+
+    componentWillMount() {
+      this.setPage(this.props)
+    }
+
+    componentWillUnmount() {
+      // TODO: this.onAbandon()
+      // NOTE: https://reacttraining.com/react-router/web/example/preventing-transitions
+    }
+
+    setPage(props: IWizProps) {
+      const search = props.location && props.location.search.substring(1)
+      const params = new URLSearchParams(search)
+
+      if (this.id === params.get(this.query_id)) {
+        // this wizard is active
+        //   useful for toggling a modal wizard via params
+        //   useful for having multiple wizards in the same page
+        const pg = parseInt(params.get('Pg'), 10)
+        if (pg !== this.state.pageNumber) {
+          this.setState({
+            currentPage: this.pages[pg],
+            pageNumber: pg,
+          })
+        }
+      }
+    }
+
+    makePages(): JSX.Element[] {
+      if (!this.props.children.length) { // only 1 page
+        return [this.props.children]
+      }
+
+      return this.props.children
+    }
+
+    render() {
+      return <Container theme={this.props.theme}>
+        <WizardProvider
+          value={{
+            id: this.id,
+            page: this.state.pageNumber,
+            query_id: this.query_id,
+          }}
+        >
+          <Stepper>
+            {this.props.children}
+          </Stepper>
+          <Page>
+            {this.state.currentPage}
+          </Page>
+        </WizardProvider>
+      </Container>
     }
   }
 
-  componentWillReceiveProps(np: IProps) {
-    const search = np.location.search.substring(1)
-    const params = new URLSearchParams(search)
-    const id = params.get(this.WIZARD_SHORT)
-    const pg = params.get('Pg')
-    if (id === this.id) {
-      // this wizard is active
-      //   useful for toggling a modal wizard via params
-      //   useful for having multiple wizards in the same page
-      this.setPage(pg)
-    }
-  }
-
-  componentWillUnmount() {
-    // TODO: this.onAbandon()
-    // NOTE: https://reacttraining.com/react-router/web/example/preventing-transitions
-  }
-
-  setPage(n: number) {
-    if (n !== this.state.pageNumber) {
-      this.setState({
-        currentPage: this.pages[n]
-      })
-    }
-  }
-
-  makePages(): JSX.Element[] {
-    if (!this.props.children.length) { // only 1 page
-      return [this.props.children]
-    }
-
-    return this.props.children
-  }
-
-  makeSteps(): JSX.Element[] {
-    if (!this.props.children.length) { // only 1 page
-      return []
-    }
-
-    const PWD = this.props.location.pathname
-    const path = n => `${PWD}?${this.WIZARD_SHORT}=${this.id}&Pg=${n}`
-    return this.props.children.map((_c: any, i: number) => StepItem(path(i), i)) // tslint:disable-line no-any
-  }
-
-  render() {
-    return <Container theme={this.props.theme}>
-      <Stepper>
-        {this.steps}
-      </Stepper>
-      <Page>
-        {this.state.currentPage}
-      </Page>
-    </Container>
-  }
+  return withRouter(Result) // ISSUE: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/17355
 }

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Consumer as ThemeConsumer } from '../theme'
+import { Consumer as ThemeConsumer } from '../theme-context'
 import { ReactChildren } from '../types/common'
 
 import * as S from './SimplePage.scss'

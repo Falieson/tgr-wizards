@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Provider as ThemeProvider } from '../theme'
+import { Provider as ThemeProvider } from '../theme-context'
 import * as T from '../theme.scss'
 import { ReactChildren } from '../types/common'
 import * as S from './SimpleContainer.scss'

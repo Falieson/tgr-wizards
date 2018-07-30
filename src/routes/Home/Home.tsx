@@ -15,7 +15,8 @@ function HomeEntrancePage() {
 
       <Gx col={12}>
         <List ordered>
-          {Hello('Start with the "SimpleWizard"')}
+          {Hello('Start with the "SimpleWiz"')}
+          {Hello('The stepper is a lot better in "Better SimpleWiz"')}
           {/* {Hello('Then checkout the fancier "FacebookFormWizard"')} */}
         </List>
       </Gx>

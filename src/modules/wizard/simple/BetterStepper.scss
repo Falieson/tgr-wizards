@@ -1,0 +1,17 @@
+@import '../theme.scss';
+
+.container {
+  margin-bottom: 20px;
+  display: flex;
+
+  a {
+    display: inline-block;
+    flex: 1 0 auto;
+    padding: 8px 16px 10px 2px;
+    text-align: center;
+    color: inherit;
+  }
+  a:visited {
+    color: inherit;
+  }
+}
