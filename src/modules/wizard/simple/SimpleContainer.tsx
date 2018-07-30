@@ -1,10 +1,18 @@
 import * as React from 'react'
-import { ReactChildren } from '../../../types/common'
+import { Provider as ThemeProvider } from '../theme'
+import * as T from '../theme.scss'
+import { ReactChildren } from '../types/common'
+import * as S from './SimpleContainer.scss'
 
-import * as S from './wizard.simple.scss'
+interface IProps {
+  children: ReactChildren,
+  theme?: any, // tslint:disable-line no-any
+}
 
-export default ({children}: {children: ReactChildren}) => <div
-  className={[S.container, S.border].join(' ')}
+export default ({children, theme = T}: IProps) => <div
+  className={[S.container, S.border, T.bg_secondary].join(' ')}
 >
-  {children}
+  <ThemeProvider value={{theme}}>
+    {children}
+  </ThemeProvider>
 </div>

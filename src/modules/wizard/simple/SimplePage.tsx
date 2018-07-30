@@ -1,10 +1,17 @@
 import * as React from 'react'
+import { Consumer as ThemeConsumer } from '../theme'
 import { ReactChildren } from '../types/common'
 
 import * as S from './SimplePage.scss'
 
 export default function SimplePages({children}: {children: ReactChildren}) {
-  return <div className={S.container}>
-    {children}
-  </div>
+  return <ThemeConsumer>
+     {({theme}) => {
+       return  (
+        <div className={[S.container, theme.bg_primary].join(' ')}>
+          {children}
+        </div>
+       )
+     }}
+  </ThemeConsumer>
 }

@@ -1,19 +1,21 @@
 @import '../theme.scss';
-@import './wizard.simple.bp.scss';
+@import './SimpleContainer.BreakPoints.scss';
 
 .container {
-  border: 1px solid red;
+  border: 1px solid $primary-dark;
+  margin: 8px;
+  padding: 4px;
 
   // between 1100-1500
-  height: 400px;
+  min-height: 400px;
 
   // less than 1100
   @media screen and (max-width: $break-small) {
-    height: 600;
+    min-height: 600;
   }
 
   // more than 1500
   @media screen and (min-width: $break-large) {
-    height: 800px;
+    min-height: 800px;
   }
 }

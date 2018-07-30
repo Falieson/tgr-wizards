@@ -50,7 +50,7 @@ const moduleCss = {
 // ## STYLES
 // support global files
 const globalCss = {
-  test: /^global.css/,
+  test: /^global.s?css/,
   loaders: ["style-loader", 'sass-loader',],
 }
 

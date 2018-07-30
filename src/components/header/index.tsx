@@ -12,7 +12,7 @@ class HeaderIndex extends React.Component<{}, {}> {
       </Link>,                    // tslint:disable-line jsx-key
     ]
     const right = [
-      <Link to="/register">Register</Link>, // tslint:disable-line jsx-key
+      <Link to="/simple">SimpleWizard</Link>, // tslint:disable-line jsx-key
     ]
 
     return <Header leftItems={left} rightItems={right}/>

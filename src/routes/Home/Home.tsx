@@ -15,8 +15,8 @@ function HomeEntrancePage() {
 
       <Gx col={12}>
         <List ordered>
-          {Hello('Click the "Register" button in the Header to run through a registration form wizard')}
-          {/* {Hello('Click HERE to view the same form with prefilled content')} */}
+          {Hello('Start with the "SimpleWizard"')}
+          {/* {Hello('Then checkout the fancier "FacebookFormWizard"')} */}
         </List>
       </Gx>
     </div>

@@ -3,13 +3,15 @@
 */
 
 import * as React from 'react'
-import { Link, RouteProps, withRouter } from 'react-router-dom'
+import { RouteProps, withRouter } from 'react-router-dom'
 import * as URLSearchParams from 'url-search-params'
 import { suuid } from './helpers/string'
 import { Container, Page, Stepper } from './simple'
+import { StepItem } from './simple/SimpleStepper'
 
 interface IProps {
-  children: any // tslint:disable-line no-any
+  children: any, // tslint:disable-line no-any
+  theme?: any,  // tslint:disable-line no-any
 }
 
 interface IState {
@@ -76,16 +78,12 @@ export default class Wizard extends React.Component<IProps & RouteProps, IState>
     }
 
     const PWD = this.props.location.pathname
-
-    const StepItem = (n: number) => <Link to={`${PWD}?${this.WIZARD_SHORT}=${this.id}&Pg=${n}`} key={n}>
-      Step {n}
-    </Link>
-
-    return this.props.children.map((_c: any, i: number) => StepItem(i)) // tslint:disable-line no-any
+    const path = n => `${PWD}?${this.WIZARD_SHORT}=${this.id}&Pg=${n}`
+    return this.props.children.map((_c: any, i: number) => StepItem(path(i), i)) // tslint:disable-line no-any
   }
 
   render() {
-    return <Container>
+    return <Container theme={this.props.theme}>
       <Stepper>
         {this.steps}
       </Stepper>

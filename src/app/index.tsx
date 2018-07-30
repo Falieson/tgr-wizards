@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import Page from '../components/page'
 import Routes from '../routes'
-import './global.css'
+import './global.scss'
 
 export default function App() {
   return <Page>

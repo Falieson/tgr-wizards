@@ -1,7 +1,7 @@
 {
   "name": "tgr-example-wizards",
   "version": "1.0.0",
-  "description": "TGRStack Example: Different usages of the tr-wizard module",
+  "description": "tr-wizard module examples for the TGRStack starterkit",
   "main": "build/index.html",
   "typings": "./build/index",
   "dependencies": {
@@ -13,7 +13,7 @@
     "apollo-link-state": "0.4.1",
     "graphql": "0.13.2",
     "graphql-tag": "2.9.2",
-    "gx": "1.0.0-rc4",
+    "gx": "file:src/modules/gx",
     "react": "16.4.1",
     "react-apollo": "2.1.5",
     "react-dom": "16.4.1",
@@ -70,7 +70,8 @@
   "scripts": {
     "start": "nps",
     "test": "nps test",
-    "help": "nps help"
+    "help": "nps help",
+    "preinstall": "npx npm i -D nps nps-utils && nps setup"
   },
   "config": {
     "cz-emoji": {
@@ -86,13 +87,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Falieson/2018-typescript-module.git"
+    "url": "git+https://github.com/Falieson/tgr-example-wizards.git"
   },
   "keywords": [],
   "author": "Florian Mettetal <florian.mettetal@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Falieson/2018-typescript-module/issues"
+    "url": "https://github.com/Falieson/tgr-example-wizards/issues"
   },
-  "homepage": "https://github.com/Falieson/2018-typescript-module#readme"
+  "homepage": "https://github.com/Falieson/tgr-example-wizards#readme"
 }
