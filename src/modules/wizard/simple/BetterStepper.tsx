@@ -21,6 +21,7 @@ export function StepperItem({
   to,
 }: IStepperItemProps) {
   const classes = {}
+  classes[S.item_container] = true
   classes[S.item_active] = active
   const containerClasses = className(classes)
 
