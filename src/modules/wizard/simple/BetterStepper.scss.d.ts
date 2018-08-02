@@ -9,7 +9,6 @@ export interface IBetterStepperScss {
   'accent_primary--dark': string
   'accent_secondary--dark': string
   'container': string
-  'item_container': string
   'item_text': string
 }
 
