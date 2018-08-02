@@ -10,12 +10,12 @@ import { suuid } from './helpers/string'
 import { Container as SimpleContainer, Page as SimplePage, SimpleStepper } from './simple'
 import * as T from './theme.scss'
 
-const sid = suuid(4)
+const sid = () => suuid(4)
 export const {
   Provider: WizardProvider,
   Consumer: WizardConsumer,
 } = React.createContext({
-  id: sid,
+  id: sid(),
   page: 0,
   query_id: 'Wz'
 })
@@ -39,7 +39,7 @@ interface IState {
 }
 
 export default function WizardBuilder({
-  id = sid,
+  id = sid(),
   Container = SimpleContainer,
   Page = SimplePage,
   Stepper = SimpleStepper,
