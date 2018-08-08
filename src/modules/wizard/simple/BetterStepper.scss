@@ -17,7 +17,13 @@
 }
 
 .item_container {
-  box-shadow: 1px 1px #c66900;
+  box-shadow: 1px 1px $secondary-dark;
+
+  &:hover {
+    box-shadow: none;
+    margin:-2px;
+    border: 2px solid $secondary-light;
+  }
 }
 .item_text {
   font-size: 1.25rem;

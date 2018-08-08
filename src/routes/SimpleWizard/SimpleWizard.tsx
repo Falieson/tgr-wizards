@@ -1,6 +1,6 @@
 // tslint:disable max-line-length
 
-import Gx from 'gx'
+import Gx from '@tgrx/gx'
 import * as React from 'react'
 import Helmet from 'react-helmet'
 import WizardBuilder from '../../components/wizard'
