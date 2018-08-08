@@ -4,12 +4,12 @@
   <hr />
 </p>
 
-## Downloading
-
-The recommended downloading strategy is to use `git clone --recursive` due to some dependencies being git hosted submodules. If you don't do it this way the `nps setup.install.gx` script may loop indefinitely.
+## Getting Started
 
 ```bash
-git clone --recursive https://github.com/Falieson/tgr-wizards.git
+git clone https://github.com/Falieson/tgr-wizards.git
+npm i -D
+nps
 ```
 
 ## Usage
